@@ -3,8 +3,8 @@ import {ProductType} from "../types";
 
 const getProducts = () => {
     const url = 
-        "https://raw.githubusercontent.com/mdmoin7/Random-Products-Json-Generator/master/products.json"
+        "http://localhost:5000/products"
     return axios.get<ProductType[]>(url);
 };
 
-export default { getProducts };
+export default { getProducts };  

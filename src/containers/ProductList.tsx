@@ -20,7 +20,7 @@ class ProductList extends React.Component<Props> {
             console.log("success", data);
 
         } catch(e){
-            console.log("error", e);
+            console.log("error", e); 
         }
     }
     render(){
@@ -54,7 +54,7 @@ class ProductList extends React.Component<Props> {
         return(
             <div className="row">
                 {this.state.plist.map((val) => {
-                    return <Column size={4}><Product 
+                    return  <Column size={4}><Product 
                                 pdata={val} 
                                 key={val.productId} 
                                 wishlist 

@@ -4,20 +4,18 @@ import Demo from "./Demo";
 import ProductList from "./containers/ProductList";
 import Currency from "./components/Currency";
 import AppRouter from './AppRouter';
+import {BrowserRouter} from "react-router-dom";
 class App extends React.Component {
   state = {currentCurrency : "INR"}; 
   render(){
     return (
-      <div>
-        <Demo/>
-
+      <BrowserRouter>
+        
         <Currency currencyChange={(code)=> {
-          this.setState({ currentCurrency: code});
-          console.log(this.state.currentCurrency);  
+          this.setState({ currentCurrency: code}); 
         }}/>
         <AppRouter/>
-        <ProductList selectedCurrency={this.state.currentCurrency}/>
-      </div>
+      </BrowserRouter>
     );
   } 
 }

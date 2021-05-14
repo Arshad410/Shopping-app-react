@@ -1,6 +1,7 @@
 import React from "react";
 import {ProductType} from "../types";
 import Currency from "./Currency";
+import ImageWithFallback from "./ImageWithFallback";
 
 type Props = {
     pdata: ProductType;
@@ -21,7 +22,7 @@ class Product extends React.Component<Props> {
         const currencyCode = this.props.currencyCode;
         return(
             <div>
-                <img src={pdata.productImage}/>
+                <ImageWithFallback source={pdata.productImage}/>
                 <h4>{pdata.productName}</h4>
                 <h5>{currencyCode}{pdata.productPrice}</h5>
                 <button>{wishlist ? "add to wishlist" : "add to cart"}</button>
