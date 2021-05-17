@@ -7,4 +7,9 @@ const getProducts = () => {
     return axios.get<ProductType[]>(url);
 };
 
-export default { getProducts };  
+const getProductById = (id: string) => {
+    const url = `http://localhost:5000/products/${id}`;
+    return axios.get<ProductType>(url);
+};
+
+export default { getProducts, getProductById };  

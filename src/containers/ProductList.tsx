@@ -1,14 +1,23 @@
 import React from "react";
 import Product from "../components/Product";
 import ProductService from "../service/ProductService";
-import {ProductType} from "../types";
+import {ProductType, StoreType} from "../types";
 import Column from "../components/Column";
+import { RouteComponentProps } from "react-router-dom";
+import {connect} from "react-redux";
+import {Dispatch} from 'redux';
+import CartActions from "../store/actions/CartActions";
 
-type Props = { selectedCurrency: string };
-type State = { plist: ProductType[] };
-
-class ProductList extends React.Component<Props> {
-    state: State = { plist: [] };
+type Props = { 
+    selectedCurrency: string;
+    addItem: (product: ProductType) => void;
+} & RouteComponentProps;
+type State = { 
+    plist: ProductType[];
+};
+class ProductList extends React.Component<Props, State> {
+    state: State = { plist: []};
+    
     componentDidMount(){
         this.getData();
     }
@@ -23,38 +32,18 @@ class ProductList extends React.Component<Props> {
             console.log("error", e); 
         }
     }
-    render(){
-        const plist:ProductType[] = [
-            {
-                productId:1000,
-                productName: "test",
-                productImage: "",
-                productPrice: 1000,
-                productSalePrice: 1000,
-                productStock: 10
-            },
-            {
-                productId:1001,
-                productName: "test1",
-                productImage: "",
-                productPrice: 1200,
-                productSalePrice: 1000,
-                productStock: 10
-            },
-            {
-                productId:1002,
-                productName: "test2",
-                productImage: "",
-                productPrice: 1090,
-                productSalePrice: 1000,
-                productStock: 10
-            }
 
-        ];
+
+    addToCart(product: ProductType) {
+        this.props.addItem(product);
+    }
+
+    render(){
         return(
             <div className="row">
                 {this.state.plist.map((val) => {
                     return  <Column size={4}><Product 
+                                btnClick={() => this.addToCart(val)}
                                 pdata={val} 
                                 key={val.productId} 
                                 wishlist 
@@ -66,4 +55,16 @@ class ProductList extends React.Component<Props> {
     }
 }
 
-export default ProductList;
+
+const mapStoreToProps=(store: StoreType) => {
+    return {
+        selectedCurrency: store.currency,
+    };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        addItem: (p: ProductType) => dispatch(CartActions.addToCart(p)),
+    };
+};
+export default connect(mapStoreToProps, mapDispatchToProps)(ProductList);

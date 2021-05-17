@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
+import {Dispatch} from "redux";
+import CurrencyActions from "../store/actions/CurrencyActions";
 
 type CurrencyProps = {
     currencyChange: (code: string) => void;
@@ -18,4 +21,10 @@ class Currency extends React.Component<CurrencyProps>{
     }
 }
 
-export default Currency;
+const mapDispatchtoProps = (dispatch: Dispatch) => {
+    return {
+        currencyChange: (code:string) => dispatch(CurrencyActions.updateCurrency(code)),
+    };
+}
+
+export default connect(null,mapDispatchtoProps)(Currency);
