@@ -18,14 +18,15 @@ type State = {
 class App extends React.Component {
   state : State = {currentCurrency : "INR", theme:"light"}; 
   render(){
+    const {theme} = this.state;
     return (
       <BrowserRouter>
         <Header>
           <ThemeSwitch themeChange={(theme)=> this.setState({theme})}/>
-          <Currency />
+          <Currency theme={theme}/>
           <LoginButtons/>
         </Header>
-        <ThemeContext.Provider value={this.state.theme}>
+        <ThemeContext.Provider value={theme}>
           <AppRouter/>
         </ThemeContext.Provider>
       </BrowserRouter>

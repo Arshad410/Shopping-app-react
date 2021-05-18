@@ -1,7 +1,7 @@
 import React from "react";
 import Product from "../components/Product";
 import ProductService from "../service/ProductService";
-import {ProductType, StoreType} from "../types";
+import {CartType, ProductType, StoreType} from "../types";
 import Column from "../components/Column";
 import { RouteComponentProps } from "react-router-dom";
 import {connect} from "react-redux";
@@ -16,7 +16,7 @@ type State = {
     plist: ProductType[];
 };
 class ProductList extends React.Component<Props, State> {
-    state: State = { plist: []};
+    state: State = { plist: [] };
     
     componentDidMount(){
         this.getData();
@@ -46,7 +46,6 @@ class ProductList extends React.Component<Props, State> {
                                 btnClick={() => this.addToCart(val)}
                                 pdata={val} 
                                 key={val.productId} 
-                                wishlist 
                                 currencyCode={this.props.selectedCurrency}/>
                             </Column>
                 })}

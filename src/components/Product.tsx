@@ -7,22 +7,14 @@ import ProductPrice from "./ProductPrice";
 
 type Props = {
     pdata: ProductType;
-    wishlist?: boolean;
     currencyCode: string;
-    btnClick:()=>void;
+    btnClick: ()=>void;
 };
 
-
 class Product extends React.Component<Props> {
-    renderStock(stock: number){
-        if(stock<=0){
-            return <p>Out of stock</p>
-        }
-            return <button className="btn btn-md btn-primary" onClick={() => {this.props.btnClick();}}>Add to cart</button>
-    }
+    
     render(){
         const pdata = this.props.pdata;
-        const wishlist = this.props.wishlist;
         const currencyCode = this.props.currencyCode;
         return(
             <div className="text-center">
@@ -37,7 +29,9 @@ class Product extends React.Component<Props> {
                     code={currencyCode}
                 />
                 </h5>
-                {this.renderStock(pdata.productStock)}
+                <Link to={"/cart"}>
+                    <button className="btn btn-md btn-primary" onClick={()=> this.props.btnClick()}>Add to cart</button>
+                </Link>
             </div>
         );
     }

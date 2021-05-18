@@ -5,6 +5,7 @@ import CurrencyActions from "../store/actions/CurrencyActions";
 
 type CurrencyProps = {
     currencyChange: (code: string) => void;
+    theme?: "light" | "dark";
 };
 
 class Currency extends React.Component<CurrencyProps>{

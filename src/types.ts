@@ -32,3 +32,16 @@ export type CartType = {
       user: object | null;
       error: string | null;
   }
+
+  export type UserType = {
+      userName: string;
+      userEmail: string;
+      userContact: number;
+  }
+
+  export type RegisterResponseType = {
+      name: string;
+      email: string;
+      contact: number;
+      password: string;
+  }
