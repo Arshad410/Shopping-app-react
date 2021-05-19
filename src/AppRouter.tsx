@@ -10,6 +10,9 @@ import Profile from "./containers/Profile";
 import PrivateRoute from "./components/PrivateRoute"; 
 import CartList from "./containers/CartList";
 import Registration from "./containers/Registration";
+import Payment from "./containers/Payment";
+import CheckoutPage from "./components/CheckoutPage";
+
 
 const AppRouter: React.FC = (props) => {
     return (
@@ -22,6 +25,8 @@ const AppRouter: React.FC = (props) => {
                 <Route path={"/register"} component={Registration}/>
                 <PrivateRoute path={"/profile"} component={Profile}/>
                 <PrivateRoute path={"/cart"} component={CartList}/> 
+                <PrivateRoute path={"/payment"} component={Payment}/> 
+                <PrivateRoute path={"/checkout"} component={CheckoutPage}/>
                 <Route component={ErrorPage} />
             </Switch>
         

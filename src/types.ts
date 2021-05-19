@@ -45,3 +45,19 @@ export type CartType = {
       contact: number;
       password: string;
   }
+
+  export type OrderResponseType = {
+      orderName: string;
+      orderAmount: number;
+      productId: number;
+  }
+
+  export type AddressType = {
+      aptNo: string;
+      aptName: string;
+      street: string;
+      locality: string;
+      city: string;
+      state: string;
+      pincode: number;
+  }

@@ -4,7 +4,7 @@ import Row from "../components/Row";
 import Column from "../components/Column";
 import TextBox from "../components/TextBox";
 import UserService from "../service/UserService";
-
+import AddressService from "../service/AddressService";
 
 type Props = {
 
@@ -18,6 +18,13 @@ type State = {
     contact: number
     errorMessage: string | null;
     isReturn : boolean;
+    aptName: string;
+    aptNo: string;
+    locality: string;
+    city: string;
+    state: string;
+    pincode: number;
+    street: string;
 };
 
 class Registration extends React.Component{
@@ -28,7 +35,15 @@ class Registration extends React.Component{
         name: "",
         contact: 0,
         errorMessage: "",
-        isReturn : false
+        isReturn : false,
+        aptName: "",
+        locality: "",
+        city: "",
+        state: "",
+        pincode: 0,
+        street: "",
+        aptNo: ""
+        
     }
     componentDidMount(){
         this.setState({isReturn: false})
@@ -36,16 +51,14 @@ class Registration extends React.Component{
     register = async (e: SyntheticEvent) => {
         try {
             e.preventDefault();
-            const {email, password, name, contact} = this.state;
+            const {email, password, name, contact, aptNo, aptName, street, locality, city, state, pincode} = this.state;
             const {data}=await UserService.register(name, email, contact, password);
+            await AddressService.addAddress(aptNo,aptName,street,locality,city,state,pincode);
             this.setState({isReturn: true})
 
         } catch (e) {
             this.setState({isReturn: false})
         }
-    }
-    shouldRedirect(){
-
     }
     render(){
         if(this.state.isReturn){
@@ -74,9 +87,11 @@ class Registration extends React.Component{
                                  type={"password"}
                                  textChange={(password) => this.setState({password})}
                         />
+                        
                         <button className="btn btn-lg btn-primary">REGISTER</button>
                     </form>
                 </Column>
+                
             </Row>
 
         );

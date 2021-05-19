@@ -6,7 +6,7 @@ import {CartType, ProductType, StoreType} from "../types";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import CartActions from "../store/actions/CartActions";
-import { RouteComponentProps } from "react-router-dom";
+import { Link, Redirect, RouteComponentProps } from "react-router-dom";
 import CartDecoration from "../components/CartDecoration";
 
 type Props = {
@@ -17,26 +17,26 @@ type Props = {
     decQty: (id: number) => void;
 } &RouteComponentProps;
 type State = { 
-    plist: ProductType[],
-    randomNumber: number
+    plist: CartType[],
 };
 
 
 
 class CartList extends React.Component<Props, State> {
     state: State = {
-        plist: [],
-        randomNumber: 1100
+        plist: this.props.products,
+
     };
 
     componentDidMount(){
         this.getFromCart();
-    }
+        
+    } 
 
     async getFromCart(){
         try{
-            this.setState({ plist: this.props.products})
-            console.log(this.state.plist)
+            console.log(this.props.products);
+            console.log(this.state.plist);
         } catch(e) {
             console.log(e);
         }
@@ -45,19 +45,26 @@ class CartList extends React.Component<Props, State> {
     removeFromCart(id: number) {
         this.props.removeItem(id);
     }
+
     addToCart(product: ProductType){
         this.props.addItem(product);
     }
+
     incrementQty(qtId: number) {
         this.props.incQty(qtId);
     }
+
     decrementQty(id: number) {
         this.props.decQty(id);
     }
+
     render(){
         return(
             <div>
             <CartDecoration/>
+            <Link to={"/payment"}>
+                <button className="btn btn-lg btn-primary">Make Payment</button>
+            </Link>
             <Row>
                 {
                     this.props.products.map((data: any, index: number) => {
